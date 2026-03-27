@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David's Art - Hyperrealistic Artist</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #000; color: #fff; }
+    
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 30px rgba(0, 102, 255, 0.4), 0 4px 15px rgba(0, 102, 255, 0.3); } 50% { box-shadow: 0 0 40px rgba(0, 102, 255, 0.5), 0 4px 15px rgba(0, 102, 255, 0.3); } }
+    @keyframes backgroundGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.6; } }
+    @keyframes floatIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes neonGlow { 0%, 100% { filter: drop-shadow(0 0 20px rgba(76, 201, 255, 0.6)) drop-shadow(0 0 40px rgba(162, 89, 255, 0.4)); } 50% { filter: drop-shadow(0 0 30px rgba(76, 201, 255, 0.8)) drop-shadow(0 0 50px rgba(162, 89, 255, 0.6)); } }
+    @keyframes cardNeonGlow { 0%, 100% { box-shadow: 0 0 20px rgba(76, 201, 255, 0.3), 0 0 40px rgba(162, 89, 255, 0.2), 0 0 60px rgba(255, 140, 0, 0.15), inset 0 0 30px rgba(76, 201, 255, 0.05); } 50% { box-shadow: 0 0 30px rgba(76, 201, 255, 0.5), 0 0 60px rgba(162, 89, 255, 0.3), 0 0 80px rgba(255, 140, 0, 0.25), inset 0 0 40px rgba(76, 201, 255, 0.08); } }
+    @keyframes socialNeonGlow { 0%, 100% { box-shadow: 0 0 15px rgba(76, 201, 255, 0.4), 0 0 30px rgba(255, 140, 0, 0.2); } 50% { box-shadow: 0 0 25px rgba(76, 201, 255, 0.6), 0 0 45px rgba(255, 140, 0, 0.35), 0 0 60px rgba(162, 89, 255, 0.2); } }
+    .animate-fade-in-down { animation: fadeInDown 0.8s ease forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease forwards; }
+    .animate-scale { animation: slideInScale 0.6s ease forwards; }
+    
+    .app-wrapper { width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .main-content { flex: 1; overflow-y: auto; width: 100%; }
+    
+    /* Navigation styles */
+    .nav-top { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: rgba(0,0,0,0.95); border-bottom: 1px solid #111; position: fixed; top: 0; left: 0; right: 0; z-index: 40; }
+    .nav-brand { font-size: 1.3rem; font-weight: 700; letter-spacing: 2px; }
+    .nav-links { display: none; gap: 2rem; }
+    .nav-links.active { display: flex; }
+    .nav-icons { display: flex; gap: 1.5rem; align-items: center; }
+    
+    /* Cart panel */
+    .cart-panel { position: fixed; right: 0; top: 0; width: 100%; max-width: 400px; height: 100%; background: #000; border-left: 1px solid #1a1a1a; transform: translateX(100%); transition: transform 0.3s ease; z-index: 45; display: flex; flex-direction: column; }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; padding: 2rem 1.5rem; border-bottom: 1px solid #1a1a1a; font-weight: 600; font-size: 1.1rem; }
+    .cart-content { flex: 1; overflow-y: auto; padding: 1.5rem; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem; background: #0a0a0a; border-radius: 0.375rem; margin-bottom: 0.75rem; font-size: 0.9rem; }
+    .cart-footer { padding: 2rem 1.5rem; border-top: 1px solid #1a1a1a; background: #000; }
+    .cart-total { display: flex; justify-content: space-between; margin-bottom: 0.75rem; padding: 0.5rem 0; font-size: 0.95rem; }
+    
+    /* Sidebar menu */
+    .sidebar-menu { position: fixed; left: 0; top: 0; width: 280px; height: 100%; background: #000; border-right: 1px solid #1a1a1a; transform: translateX(-100%); transition: transform 0.3s ease; z-index: 45; display: flex; flex-direction: column; }
+    .sidebar-menu.open { transform: translateX(0); }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 2rem 1.5rem; border-bottom: 1px solid #1a1a1a; font-weight: 600; }
+    .sidebar-links { flex: 1; overflow-y: auto; padding: 1.5rem 0; }
+    .sidebar-links a { display: block; padding: 1rem 1.5rem; color: #aaa; text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; }
+    .sidebar-links a:hover { background: #0a0a0a; border-left-color: #fff; color: #fff; }
+    
+    /* Search bar */
+    .search-container { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: none; background: rgba(0,0,0,0.92); padding: 3rem 1rem; }
+    .search-container.active { display: flex; align-items: center; justify-content: center; flex-direction: column; animation: floatIn 0.4s ease; }
+    .search-input { width: 100%; max-width: 500px; padding: 1rem 1.25rem; background: #0a0a0a; border: 1px solid #222; border-radius: 0.375rem; color: #fff; font-size: 1rem; }
+    .search-input::placeholder { color: #666; }
+    .search-input:focus { outline: none; border-color: #fff; }
+    
+    /* Overlay */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 30; display: none; }
+    .overlay.active { display: block; }
+    
+    /* Hero */
+    .hero { min-height: 100vh; background: linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%); display: flex; align-items: center; justify-content: center; text-align: center; padding: 6rem 1rem 4rem; margin-top: 3.5rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(76, 201, 255, 0.08) 0%, rgba(162, 89, 255, 0.05) 40%, transparent 70%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 600px; height: 1200px; background: linear-gradient(to bottom, rgba(122, 44, 255, 0.6), rgba(76, 201, 255, 0.8), rgba(255, 110, 199, 0.4), transparent); filter: blur(80px); pointer-events: none; z-index: 1; animation: glowBeamFade 3s ease-in-out infinite; }
+    @keyframes glowBeamFade { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+    .hero-content { max-width: 900px; position: relative; z-index: 2; }
+    .hero-subtitle { font-size: 0.85rem; letter-spacing: 3px; color: #888; margin-bottom: 2rem; text-transform: uppercase; font-weight: 500; }
+    .hero h1 { font-size: clamp(4.5rem, 12vw, 7rem); font-weight: 900; margin-bottom: 1rem; letter-spacing: -2px; line-height: 1.1; font-family: 'Playfair Display', serif; text-shadow: 0 0 30px rgba(76, 201, 255, 0.6), 0 0 60px rgba(122, 44, 255, 0.4); }
+    .hero-divider { width: 40px; height: 1px; background: #fff; margin: 2rem auto; }
+    .hero p { font-size: 1.15rem; color: #aaa; margin-bottom: 3.5rem; line-height: 1.7; font-weight: 300; }
+    .cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 0.9rem 2.5rem; border-radius: 0.375rem; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; font-size: 0.95rem; letter-spacing: 0.5px; }
+    .btn-primary { background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%); color: #fff; font-weight: 700; box-shadow: 0 0 15px rgba(0, 102, 255, 0.4); }
+    .btn-primary:hover { background: linear-gradient(135deg, #0052cc 0%, #003d99 100%); transform: translateY(-2px); box-shadow: 0 0 25px rgba(0, 102, 255, 0.6); }
+    .btn-secondary { background: transparent; color: #fff; border: 1.5px solid #fff; transition: all 0.3s ease; }
+    .btn-secondary:hover { background: #fff; color: #000; transform: translateY(-2px); transition: all 0.3s ease; }
+    
+    /* Sections */
+    .section { padding: 6rem 1rem; }
+    .section-title { font-size: 3rem; font-weight: 700; margin-bottom: 3rem; letter-spacing: -0.5px; }
+    .section-subtitle { font-size: 1rem; color: #aaa; margin-bottom: 2rem; font-weight: 300; line-height: 1.6; }
+    .section-content { max-width: 1000px; margin: 0 auto; }
+    
+    /* About */
+    .about { background: #000; }
+    .about-text { text-align: center; }
+    .about-text p { font-size: 1.05rem; color: #bbb; margin-bottom: 2rem; line-height: 1.9; max-width: 800px; margin-left: auto; margin-right: auto; font-weight: 300; }
+    .social-links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 3rem; }
+    .social-links a { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%); border: 1px solid #0066ff; border-radius: 0.375rem; color: #fff; text-decoration: none; transition: all 0.3s; box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); }
+    .social-links a:hover { background: linear-gradient(135deg, #0052cc 0%, #003d99 100%); border-color: #0052cc; box-shadow: 0 0 30px rgba(0, 102, 255, 0.6), 0 0 50px rgba(0, 102, 255, 0.3); transform: translateY(-2px); }
+    
+    /* Commissions */
+    .commissions { background: #000; }
+    .size-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2.5rem; margin-bottom: 3rem; }
+    .size-card { background: #0a0a0a; border: 1.5px solid #1a1a1a; border-radius: 0.375rem; padding: 2.5rem 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
+    .size-card::before { content: ''; position: absolute; inset: -1px; border-radius: 0.375rem; background: linear-gradient(135deg, rgba(162, 89, 255, 0.4) 0%, rgba(76, 201, 255, 0.3) 40%, rgba(255, 140, 0, 0.2) 100%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 0; }
+    .size-card:hover::before { opacity: 1; }
+    .size-card:hover { border-color: rgba(76, 201, 255, 0.5); background: #0f0f0f; transform: translateY(-4px); animation: cardNeonGlow 2s ease-in-out infinite; }
+    .size-card > * { position: relative; z-index: 1; }
+    .size-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
+    .size-card .size-dims { color: #888; margin-bottom: 1.5rem; font-size: 0.9rem; font-weight: 300; }
+    .size-card .price { font-size: 2rem; font-weight: 700; margin-bottom: 2rem; letter-spacing: -0.5px; }
+    .size-card ul { list-style: none; margin-bottom: 2rem; }
+    .size-card li { color: #999; padding: 0.6rem 0; font-size: 0.9rem; }
+    
+    /* Shop */
+    .shop { background: #000; }
+    .art-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 3rem; }
+    .art-item { background: #0a0a0a; border-radius: 0.375rem; overflow: hidden; cursor: pointer; transition: all 0.4s; border: 1px solid #1a1a1a; }
+    .art-item:hover { transform: translateY(-8px); border-color: #333; }
+    .art-image { width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #111 0%, #0a0a0a 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .art-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .art-item:hover .art-image img { transform: scale(1.03); }
+    .art-info { padding: 2rem; }
+    .art-info h4 { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600; letter-spacing: -0.3px; }
+    .art-info p { color: #888; font-size: 0.85rem; margin-bottom: 1.5rem; }
+    .art-price { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.3px; }
+    
+    /* Contact */
+    .contact { background: #000; }
+    .contact-form { max-width: 600px; margin: 0 auto; }
+    .form-group { margin-bottom: 2rem; }
+    .form-group label { display: block; margin-bottom: 0.75rem; font-weight: 500; font-size: 0.95rem; }
+    .form-group input, .form-group textarea { width: 100%; padding: 1rem 1.25rem; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 0.375rem; color: #fff; font-family: inherit; transition: all 0.2s; font-size: 0.95rem; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #fff; background: #111; }
+    
+    /* Footer */
+    .footer { background: #000; padding: 3rem 1rem; text-align: center; color: #666; font-size: 0.85rem; border-top: 1px solid #1a1a1a; }
+    
+    /* Toast */
+    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; color: #000; padding: 1.25rem 2rem; border-radius: 0.375rem; z-index: 100; transition: transform 0.3s ease; pointer-events: none; font-weight: 500; }
+    .toast.show { transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-top { padding: 1rem 1.5rem; }
+      .nav-brand { font-size: 1rem; }
+      .nav-icons { gap: 1rem; }
+      .hero { padding: 5rem 1rem 3rem; margin-top: 3.5rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1rem; margin-bottom: 2rem; }
+      .cta-buttons { flex-direction: column; gap: 1rem; }
+      .btn { width: 100%; }
+      .section { padding: 4rem 1rem; }
+      .section-title { font-size: 2rem; margin-bottom: 2rem; }
+      .about-text p { font-size: 0.95rem; }
+      .size-options { grid-template-columns: 1fr; gap: 1.5rem; }
+      .art-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-wrapper"><!-- Overlay -->
+   <div class="overlay" id="overlay"></div><!-- Sidebar Menu -->
+   <div class="sidebar-menu" id="sidebarMenu">
+    <div class="sidebar-header"><span style="font-weight: 600;">Menu</span> <button onclick="closeSidebar()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 1.5rem;">✕</button>
+    </div>
+    <nav class="sidebar-links"><a href="#home" onclick="closeSidebar()">Home</a> <a href="#about" onclick="closeSidebar()">About</a> <a href="#commissions" onclick="closeSidebar()">Commissions</a> <a href="#shop" onclick="closeSidebar()">Shop</a> <a href="#contact" onclick="closeSidebar()">Contact</a>
+    </nav>
+   </div><!-- Search Container -->
+   <div class="search-container" id="searchContainer"><input type="text" class="search-input" id="searchInput" placeholder="Search artworks..." autofocus> <button onclick="closeSearch()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: #fff; cursor: pointer; font-size: 1.5rem;">✕</button>
+   </div><!-- Cart Panel -->
+   <div class="cart-panel" id="cartPanel">
+    <div class="cart-header"><span style="font-weight: 600;">Shopping Cart</span> <button onclick="closeCart()" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 1.5rem;">✕</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+     <p style="color: #666; text-align: center;">Your cart is empty</p>
+    </div>
+    <div class="cart-footer">
+     <div class="cart-total"><span>Subtotal:</span> <span id="subtotal">€0.00</span>
+     </div>
+     <div class="cart-total"><span>Tax (5%):</span> <span id="taxAmount">€0.00</span>
+     </div>
+     <div class="cart-total"><span>Shipping:</span> <span>€5.00</span>
+     </div>
+     <div class="cart-total" style="font-size: 1.2rem; font-weight: 700; border-top: 1px solid #333; padding-top: 1rem;"><span>Total:</span> <span id="total">€0.00</span>
+     </div><button onclick="checkout()" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Checkout</button>
+    </div>
+   </div><!-- Navigation -->
+   <nav class="nav-top">
+    <div class="nav-brand">
+     David's Art
+    </div>
+    <div class="nav-links"><a href="#home">Home</a> <a href="#about">About</a> <a href="#commissions">Commissions</a> <a href="#shop">Shop</a> <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-icons"><button onclick="openSearch()" style="background: none; border: none; color: #fff; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"> <i data-lucide="search" style="width: 20px; height: 20px;"></i> </button> <button onclick="toggleSidebar()" style="background: none; border: none; color: #fff; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-left: 0.5rem;"> <i data-lucide="menu" style="width: 20px; height: 20px;"></i> </button> <button onclick="openCart()" style="background: none; border: none; color: #fff; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-left: 0.5rem; position: relative;"> <i data-lucide="shopping-cart" style="width: 20px; height: 20px;"></i> <span id="cartCount" style="position: absolute; top: -5px; right: -5px; background: #fff; color: #000; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; display: none;">0</span> </button>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="main-content"><!-- Hero Section -->
+    <section id="home" class="hero">
+     <div class="hero-content">
+      <p class="hero-subtitle animate-fade-in-down">HYPERREALISM ARTIST • SLIGO, IRELAND</p>
+      <h1 class="animate-fade-in-down" style="animation-delay: 0.1s;">David's Art</h1>
+      <div class="hero-divider animate-scale" style="animation-delay: 0.2s;"></div>
+      <p class="animate-fade-in-up" style="animation-delay: 0.2s;">Self-taught artist creating lifelike drawings since age 5</p>
+      <div class="cta-buttons animate-fade-in-up" style="animation-delay: 0.3s;"><a href="#shop" class="btn btn-primary">View Gallery</a> <a href="#commissions" class="btn btn-secondary">Order a Commission</a>
+      </div>
+     </div>
+    </section><!-- About Section -->
+    <section id="about" class="section about">
+     <div class="section-content">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-text">
+       <p>Hi, I'm David — a 15-year-old self-taught hyperrealism artist based in Sligo, Ireland.</p>
+       <p>I've been drawing since the age of 5, developing my skills through dedication, patience, and constant practice without formal training. My work focuses on capturing extreme detail and realism, aiming to bring every subject to life through graphite.</p>
+       <p>I specialise in highly detailed Formula 1 drawings and custom pieces created from client photos. Each artwork is carefully crafted with precision and attention to detail.</p>
+       <p>Today, I create commissioned pieces and original artworks for people who want something personal, meaningful, and unique.</p>
+       <div class="social-links"><a href="https://www.instagram.com/david.art15?igsh=MWd4dWN6eGkweXFxYg==" target="_blank" rel="noopener noreferrer" title="Instagram"> <i data-lucide="instagram" style="width: 20px; height: 20px;"></i> </a> <a href="https://youtube.com/@david-b2e6n?si=FddAfYJ9d_d9l_g5" target="_blank" rel="noopener noreferrer" title="YouTube"> <i data-lucide="youtube" style="width: 20px; height: 20px;"></i> </a>
+       </div>
+      </div>
+     </div>
+    </section><!-- Commissions Section -->
+    <section id="commissions" class="section commissions">
+     <div class="section-content">
+      <h2 class="section-title">Commission a Custom Artwork</h2>
+      <p style="color: #aaa; margin-bottom: 2rem; font-size: 1.05rem;">I create custom hyperrealistic drawings from your photos. Perfect for gifts, cars or special moments. Make sure to DM me instagram before you pay to discuss details.</p>
+      <div class="size-options">
+       <div class="size-card">
+        <h3>A5</h3>
+        <div class="size-dims">
+         Small Sketch
+        </div>
+        <div class="price">
+         €50
+        </div>
+        <ul>
+         <li>✓ Initial Consultation</li>
+         <li>✓ 1 Revision</li>
+         <li>✓ 2-3 Weeks</li>
+        </ul><button onclick="selectCommission('A5', 50)" class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+       </div>
+       <div class="size-card">
+        <h3>A4</h3>
+        <div class="size-dims">
+         Standard Drawing
+        </div>
+        <div class="price">
+         €100
+        </div>
+        <ul>
+         <li>✓ Initial Consultation</li>
+         <li>✓ 2 Revisions</li>
+         <li>✓ 3-4 Weeks</li>
+        </ul><button onclick="selectCommission('A4', 100)" class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+       </div>
+       <div class="size-card">
+        <h3>A3</h3>
+        <div class="size-dims">
+         Large Detail Work
+        </div>
+        <div class="price">
+         €200
+        </div>
+        <ul>
+         <li>✓ Initial Consultation</li>
+         <li>✓ 3 Revisions</li>
+         <li>✓ 4-5 Weeks</li>
+        </ul><button onclick="selectCommission('A3', 200)" class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+       </div>
+       <div class="size-card">
+        <h3>A2</h3>
+        <div class="size-dims">
+         Exhibition Quality
+        </div>
+        <div class="price">
+         €300
+        </div>
+        <ul>
+         <li>✓ Initial Consultation</li>
+         <li>✓ Unlimited Revisions</li>
+         <li>✓ 6-8 Weeks</li>
+        </ul><button onclick="selectCommission('A2', 300)" class="btn btn-primary" style="width: 100%;">Add to Cart</button>
+       </div>
+      </div>
+      <p style="color: #888; text-align: center; font-size: 0.9rem; margin-top: 2rem;"><strong>💬 DM me before buying</strong> to discuss project details, timeline, and reference photos.</p>
+     </div>
+    </section><!-- Shop Section -->
+    <section id="shop" class="section shop">
+     <div class="section-content">
+      <h2 class="section-title">Buy Original Artwork</h2>
+      <p style="color: #aaa; margin-bottom: 2rem; font-size: 1.05rem;">Limited original pieces available. Each artwork is a unique creation.</p>
+      <div class="art-grid">
+       <div class="art-item">
+        <div class="art-image"><img src="https://image2url.com/r2/default/images/.-daa8c0aa-bc1e-4f4c-bbb3-ef88a719afab.jpg" alt="Max Verstappen – Yas Marina Circuit (2022)" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='#1a1a1a'; this.alt='Image unavailable';">
+        </div>
+        <div class="art-info">
+         <h4>Max Verstappen – Yas Marina Circuit (2022)</h4>
+         <p>Limited Original Print</p>
+         <div class="art-price">
+          €80
+         </div><button onclick="addToCart('Max Verstappen – Yas Marina Circuit (2022)', 80)" class="btn btn-primary" style="width: 100%;">Buy Now</button>
+        </div>
+       </div>
+       <div class="art-item" style="opacity: 0.5; pointer-events: none;">
+        <div class="art-image" style="background: #1a1a1a;">
+         <div style="text-align: center; color: #666;"><i data-lucide="image" style="width: 40px; height: 40px; margin-bottom: 0.5rem;"></i>
+          <p>Coming Soon</p>
+         </div>
+        </div>
+        <div class="art-info">
+         <h4>Original #2</h4>
+         <p style="color: #888; font-size: 0.9rem;">Available Soon</p>
+        </div>
+       </div>
+       <div class="art-item" style="opacity: 0.5; pointer-events: none;">
+        <div class="art-image" style="background: #1a1a1a;">
+         <div style="text-align: center; color: #666;"><i data-lucide="image" style="width: 40px; height: 40px; margin-bottom: 0.5rem;"></i>
+          <p>Coming Soon</p>
+         </div>
+        </div>
+        <div class="art-info">
+         <h4>Original #3</h4>
+         <p style="color: #888; font-size: 0.9rem;">Available Soon</p>
+        </div>
+       </div>
+      </div>
+      <p style="color: #888; text-align: center; margin-top: 2rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;"><span style="font-size: 1.1rem;">💳</span> <span>Secure payments via</span> <a href="https://revolut.me/davide44k" target="_blank" rel="noopener noreferrer" style="color: #0066ff; font-weight: 600; text-decoration: none; transition: all 0.3s ease; border-bottom: 1px solid #0066ff; padding: 0 0.25rem;" onmouseover="this.style.color='#0052cc'" onmouseout="this.style.color='#0066ff'">Revolut</a></p>
+     </div>
+    </section><!-- Social Section -->
+    <section style="padding: 3rem 1rem; background: #0a0a0a; text-align: center;">
+     <div class="section-content">
+      <h2 class="section-title">Follow My Journey</h2>
+      <p style="color: #aaa; margin-bottom: 2rem;">Watch my art process and latest work on social media</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;"><a href="https://www.instagram.com/david.art15?igsh=MWd4dWN6eGkweXFxYg==" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="background: transparent; color: #fff; border: 1.5px solid #0066ff; box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); transition: all 0.3s; animation: socialNeonGlow 2s ease-in-out infinite;">Instagram</a> <a href="https://youtube.com/@david-b2e6n?si=FddAfYJ9d_d9l_g5" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="background: transparent; color: #fff; border: 1.5px solid #0066ff; box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); transition: all 0.3s; animation: socialNeonGlow 2s ease-in-out infinite;">YouTube</a>
+      </div>
+     </div>
+    </section><!-- Contact Section -->
+    <section id="contact" class="section contact">
+     <div class="section-content">
+      <h2 class="section-title">Get In Touch</h2>
+      <p style="color: #aaa; margin-bottom: 2rem; text-align: center;">For commissions or business inquiries, contact me here or through social media.</p>
+      <form class="contact-form" id="contactForm">
+       <div class="form-group"><label for="name">Name</label> <input type="text" id="name" name="name" required placeholder="Your name">
+       </div>
+       <div class="form-group"><label for="email">Email</label> <input type="email" id="email" name="email" required placeholder="your@email.com">
+       </div>
+       <div class="form-group"><label for="message">Message</label> <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project..."></textarea>
+       </div><button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+      </form>
+     </div>
+    </section><!-- Footer -->
+    <footer class="footer">
+     <p>© 2026 David's Art. All rights reserved. 📍 Sligo, Ireland</p>
+    </footer>
+   </main>
+  </div><!-- Toast Notification -->
+  <div class="toast" id="toast">
+   <p id="toastMessage"></p>
+  </div>
+  <script>
+    lucide.createIcons();
+    
+    let cart = [];
+    const TAX_RATE = 0.05;
+    const SHIPPING = 5;
+    
+    // SDK Initialization
+    let sdkInitialized = false;
+    
+    async function initializeSDK() {
+      if (!window.dataSdk) return;
+      
+      const handler = {
+        onDataChanged(data) {
+          // Handle incoming data if needed
+        }
+      };
+      
+      const result = await window.dataSdk.init(handler);
+      if (result.isOk) {
+        sdkInitialized = true;
+      }
+    }
+    
+    initializeSDK();
+    
+    // Toast notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+    
+    // Sidebar functions
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebarMenu');
+      const overlay = document.getElementById('overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
+    
+    function closeSidebar() {
+      document.getElementById('sidebarMenu').classList.remove('open');
+      document.getElementById('overlay').classList.remove('active');
+    }
+    
+    // Search functions
+    function openSearch() {
+      document.getElementById('searchContainer').classList.add('active');
+      document.getElementById('overlay').classList.add('active');
+    }
+    
+    function closeSearch() {
+      document.getElementById('searchContainer').classList.remove('active');
+      document.getElementById('overlay').classList.remove('active');
+    }
+    
+    // Cart functions
+    function openCart() {
+      document.getElementById('cartPanel').classList.add('open');
+      document.getElementById('overlay').classList.add('active');
+    }
+    
+    function closeCart() {
+      document.getElementById('cartPanel').classList.remove('open');
+      document.getElementById('overlay').classList.remove('active');
+    }
+    
+    function addToCart(name, price) {
+      cart.push({ name, price, id: Date.now() });
+      updateCart();
+      showToast(`${name} added to cart!`);
+    }
+    
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCart();
+      showToast('Item removed from cart');
+    }
+    
+    function updateCart() {
+      const cartCount = document.getElementById('cartCount');
+      if (cart.length > 0) {
+        cartCount.textContent = cart.length;
+        cartCount.style.display = 'flex';
+      } else {
+        cartCount.style.display = 'none';
+      }
+      
+      const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+      const tax = subtotal * TAX_RATE;
+      const total = subtotal + tax + SHIPPING;
+      
+      document.getElementById('subtotal').textContent = '€' + subtotal.toFixed(2);
+      document.getElementById('taxAmount').textContent = '€' + tax.toFixed(2);
+      document.getElementById('total').textContent = '€' + total.toFixed(2);
+      
+      const cartContent = document.getElementById('cartContent');
+      if (cart.length === 0) {
+        cartContent.innerHTML = '<p style="color: #666; text-align: center;">Your cart is empty</p>';
+      } else {
+        cartContent.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div>
+              <div>${item.name}</div>
+              <div style="color: #888; font-size: 0.85rem;">€${item.price.toFixed(2)}</div>
+            </div>
+            <button onclick="removeFromCart(${item.id})" style="background: none; border: none; color: #888; cursor: pointer; padding: 0.25rem 0.5rem;">✕</button>
+          </div>
+        `).join('');
+      }
+    }
+    
+    function checkout() {
+      if (cart.length === 0) {
+        showToast('Your cart is empty');
+        return;
+      }
+      showToast('Opening Revolut payment...');
+      window.open('https://revolut.me/davide44k', '_blank');
+    }
+    
+    function selectCommission(size, price) {
+      addToCart(`Commission - ${size} (€${price})`, price);
+    }
+    
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
+      if (!name || !email || !message) {
+        showToast('Please fill out all fields');
+        return;
+      }
+      
+      // Save to Data SDK
+      if (window.dataSdk && sdkInitialized) {
+        const result = await window.dataSdk.create({
+          name,
+          email,
+          message,
+          timestamp: new Date().toISOString()
+        });
+        
+        if (result.isOk) {
+          showToast('Message sent! I will get back to you soon.');
+          document.getElementById('contactForm').reset();
+        } else {
+          showToast('Error sending message. Please try again.');
+        }
+      } else {
+        showToast('Message sent! I will get back to you soon.');
+        document.getElementById('contactForm').reset();
+      }
+    });
+    
+    // Overlay click closes panels
+    document.getElementById('overlay').addEventListener('click', () => {
+      closeSidebar();
+      closeSearch();
+      closeCart();
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+    
+    // Scroll effects
+    window.addEventListener('scroll', () => {
+      // Navbar updates removed to fix issue
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e2f5ee6466f63a3',t:'MTc3NDYyNDczOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
