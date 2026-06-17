@@ -5,7 +5,7 @@
 <title>DAVID'S ART — VOL 01</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,15 +17,48 @@
     overflow-x: hidden;
   }
 
+  /* NAV */
   header {
     width: 100%;
     padding: 22px;
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
-    letter-spacing: 0.15em;
+    align-items: center;
   }
 
+  .menu-box {
+    border: 1px solid #444;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-lines {
+    width: 18px;
+    height: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .menu-lines div {
+    height: 2px;
+    background: #fff;
+  }
+
+  .nav-title {
+    font-size: 16px;
+    letter-spacing: 0.25em;
+  }
+
+  .cart {
+    font-size: 14px;
+    letter-spacing: 0.2em;
+  }
+
+  /* LOOP TEXT */
   .marquee {
     width: 100%;
     overflow: hidden;
@@ -39,8 +72,8 @@
   .marquee span {
     display: inline-block;
     animation: scroll 18s linear infinite;
-    font-size: 12px;
-    letter-spacing: 0.35em;
+    font-size: 11px;
+    letter-spacing: 0.55em;
     color: #aaa;
   }
 
@@ -49,43 +82,101 @@
     100% { transform: translateX(-100%); }
   }
 
+  /* HERO */
   .hero {
-    padding: 40px 22px;
+    padding: 50px 22px 20px;
     text-align: center;
   }
 
   .hero-live {
     font-size: 12px;
     letter-spacing: 0.25em;
-    color: #ff2a2a;
     margin-bottom: 18px;
   }
 
+  .hero-live span.red-dot {
+    color: #ff2a2a;
+  }
+
+  .hero-live span.grey {
+    color: #888;
+  }
+
   .hero-title {
-    font-family: 'Anton', sans-serif;
-    font-size: 64px;
-    letter-spacing: 0.05em;
-    margin-bottom: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 78px;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
   }
 
   .hero-sub {
     font-size: 14px;
     color: #aaa;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
   }
 
-  .meta-grid {
+  /* GEOMETRIC SHAPE */
+  .geo-wrap {
+    width: 100%;
+    margin: 0 auto 40px;
+    position: relative;
+    height: 40px;
+  }
+
+  .geo-line {
+    width: 100%;
+    height: 1px;
+    background: #444;
+    position: absolute;
+    top: 50%;
+    left: 0;
+  }
+
+  .geo-dome {
+    width: 120px;
+    height: 60px;
+    border: 1px solid #444;
+    border-bottom: none;
+    border-radius: 120px 120px 0 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -20px;
+    overflow: hidden;
+  }
+
+  .geo-slash {
+    width: 200%;
+    height: 1px;
+    background: #444;
+    position: absolute;
+    transform: rotate(-25deg);
+    opacity: 0.4;
+  }
+
+  .geo-slash:nth-child(1) { top: 10px; left: -40px; }
+  .geo-slash:nth-child(2) { top: 22px; left: -40px; }
+  .geo-slash:nth-child(3) { top: 34px; left: -40px; }
+  .geo-slash:nth-child(4) { top: 46px; left: -40px; }
+  .geo-slash:nth-child(5) { top: 58px; left: -40px; }
+
+  /* 4-SECTION RECTANGLE */
+  .meta-box {
+    width: 100%;
+    border: 1px solid #222;
+    border-radius: 12px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
 
-  .meta-box {
-    border: 1px solid #222;
-    padding: 14px;
-    border-radius: 10px;
-    text-align: left;
+  .meta-section {
+    padding: 18px;
+    border-right: 1px solid #222;
+  }
+
+  .meta-section:last-child {
+    border-right: none;
   }
 
   .meta-label {
@@ -101,27 +192,21 @@
     text-transform: uppercase;
   }
 
-  .hero-bottom {
-    margin-top: 20px;
-    margin-bottom: 40px;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    color: #aaa;
-    text-align: center;
-  }
-
+  /* BUTTON */
   .btn {
-    border: 1px solid #222;
-    padding: 12px 20px;
+    background: #d8c7a1;
+    color: #000;
+    padding: 14px 26px;
     border-radius: 50px;
-    background: #111;
     font-size: 12px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
+    border: none;
     cursor: pointer;
-    margin-top: 20px;
+    margin-bottom: 50px;
   }
 
+  /* OBJECT SECTION */
   .objects {
     padding: 40px 22px;
     border-top: 1px solid #222;
@@ -141,7 +226,7 @@
 
   .placeholder {
     width: 100%;
-    height: 220px;
+    height: 260px;
     border: 1px dashed #333;
     border-radius: 12px;
     display: flex;
@@ -158,7 +243,7 @@
   }
 
   .object-price {
-    font-size: 16px;
+    font-size: 18px;
     margin: 10px 0;
   }
 
@@ -175,13 +260,22 @@
     border-radius: 10px;
   }
 
+  /* FOOTER */
   footer {
-    padding: 40px 22px;
+    padding: 50px 22px;
     border-top: 1px solid #222;
+    text-align: center;
     font-size: 12px;
     color: #777;
     letter-spacing: 0.15em;
-    text-align: center;
+  }
+
+  .footer-links {
+    margin: 20px 0;
+  }
+
+  .footer-links div {
+    margin: 6px 0;
   }
 </style>
 </head>
@@ -189,8 +283,15 @@
 <body>
 
 <header>
-  <div>DAVID'S ART</div>
-  <div>CART 00</div>
+  <div class="menu-box">
+    <div class="menu-lines">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+
+  <div class="nav-title">DAVID'S ART</div>
+
+  <div class="cart">CART 00</div>
 </header>
 
 <div class="marquee">
@@ -199,32 +300,44 @@
 
 <section class="hero">
 
-  <div class="hero-live">LIVE • BEFORE REVEAL • VOL 01 • 2026 / DAVID'S</div>
+  <div class="hero-live">
+    <span class="red-dot">●</span>
+    <span class="grey"> LIVE • BEFORE REVEAL • VOL 01 • 2026 / DAVID'S</span>
+  </div>
 
   <div class="hero-title">DAVID’S ART</div>
 
   <div class="hero-sub">art is everything</div>
 
-  <div class="meta-grid">
-    <div class="meta-box">
+  <div class="geo-wrap">
+    <div class="geo-line"></div>
+    <div class="geo-dome">
+      <div class="geo-slash"></div>
+      <div class="geo-slash"></div>
+      <div class="geo-slash"></div>
+      <div class="geo-slash"></div>
+      <div class="geo-slash"></div>
+    </div>
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-section">
       <div class="meta-label">Batch</div>
       <div class="meta-value">One • No Restock</div>
     </div>
-    <div class="meta-box">
+    <div class="meta-section">
       <div class="meta-label">Material</div>
       <div class="meta-value">100% Cotton</div>
     </div>
-    <div class="meta-box">
+    <div class="meta-section">
       <div class="meta-label">Numbered</div>
       <div class="meta-value">01 / 30</div>
     </div>
-    <div class="meta-box">
+    <div class="meta-section">
       <div class="meta-label">Drop</div>
       <div class="meta-value">September • 2026</div>
     </div>
   </div>
-
-  <div class="hero-bottom">[ 0.01 / t-shirts 01 • Old Memory • before reveal ]</div>
 
   <button class="btn">VIEW OBJECTS →</button>
 
@@ -263,9 +376,21 @@
 </section>
 
 <footer>
-  DAVID'S ART © 2026<br><br>
-  FAQ • SHIPPING • REFUND • PRIVACY • TERMS • COOKIES<br><br>
-  ART IS EVERYTHING VOL 01 • 2026
+  DAVID'S ART © 2026
+
+  <div class="footer-links">
+    <div>HOME</div>
+    <div>OBJECTS</div>
+    <div>STUDIO</div>
+    <div>CONTACT ↗</div>
+  </div>
+
+  <div class="footer-links">
+    <div>FAQ • SHIPPING • REFUND</div>
+    <div>PRIVACY • TERMS • COOKIES</div>
+  </div>
+
+  ART IS EVERYTHING • VOL 01 · 2026
 </footer>
 
 </body>
