@@ -1,19 +1,14 @@
-<!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>DAVID'S ART — VOL 01</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Correct condensed font (matches your screenshot) -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     background: #000;
@@ -22,18 +17,15 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   header {
     width: 100%;
-    padding: 20px;
-    font-size: 14px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    padding: 22px;
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
+    letter-spacing: 0.15em;
   }
 
-  /* MARQUEE */
   .marquee {
     width: 100%;
     overflow: hidden;
@@ -57,23 +49,31 @@
     100% { transform: translateX(-100%); }
   }
 
-  /* HERO */
   .hero {
-    padding: 40px 20px;
+    padding: 40px 22px;
   }
 
-  .hero-top {
+  .hero-live {
     font-size: 12px;
     letter-spacing: 0.2em;
-    color: #aaa;
-    margin-bottom: 20px;
+    color: #ff2a2a;
+    margin-bottom: 18px;
   }
 
   .hero-title {
-    font-size: 48px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 5px;
+    font-family: 'Anton', sans-serif;
+    font-size: 64px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .hero-title img {
+    height: 62px;
+    width: auto;
+    margin: 0 2px;
   }
 
   .hero-sub {
@@ -91,8 +91,8 @@
 
   .meta-box {
     border: 1px solid #222;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 14px;
+    border-radius: 10px;
   }
 
   .meta-label {
@@ -128,9 +128,8 @@
     cursor: pointer;
   }
 
-  /* OBJECTS */
   .objects {
-    padding: 40px 20px;
+    padding: 40px 22px;
     border-top: 1px solid #222;
   }
 
@@ -179,12 +178,11 @@
   .spec-box {
     border: 1px solid #222;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 10px;
   }
 
-  /* FOOTER */
   footer {
-    padding: 40px 20px;
+    padding: 40px 22px;
     border-top: 1px solid #222;
     font-size: 12px;
     color: #777;
@@ -205,9 +203,15 @@
 </div>
 
 <section class="hero">
-  <div class="hero-top">LIVE • BEFORE REVEAL • VOL 01 • 2026 / DAVID'S</div>
 
-  <div class="hero-title">DAVID'S ART</div>
+  <div class="hero-live">LIVE • BEFORE REVEAL • VOL 01 • 2026 / DAVID'S</div>
+
+  <div class="hero-title">
+    DAVID’S AR
+    <img src="t-brush.png" alt="T">
+    T
+  </div>
+
   <div class="hero-sub">art is everything</div>
 
   <div class="meta-grid">
@@ -233,6 +237,7 @@
     <div>[ 0.01 / t-shirts 01 • Old Memory • before reveal ]</div>
     <button class="btn">VIEW OBJECTS →</button>
   </div>
+
 </section>
 
 <section class="objects">
@@ -274,4 +279,4 @@
 </footer>
 
 </body>
-</html>              
+</html>
