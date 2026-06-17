@@ -1,603 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>DAVID'S ART — Vol 01</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #050505;
-      --fg: #f5f5f5;
-      --muted: #9b9b9b;
-      --accent: #ffffff;
-      --border: #1a1a1a;
-      --accent-soft: #2a2a2a;
-      --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+<meta charset="UTF-8">
+<title>DAVID'S ART — VOL 01</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<!-- Correct condensed font (matches your screenshot) -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 
-    html, body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-main);
-      -webkit-font-smoothing: antialiased;
-    }
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow-x: hidden;
+  }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  /* NAV */
+  header {
+    width: 100%;
+    padding: 20px;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 16px 80px;
-    }
+  /* MARQUEE */
+  .marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+    padding: 10px 0;
+  }
 
-    /* NAVBAR */
+  .marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll 18s linear infinite;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: #aaa;
+  }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 0 12px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(5, 5, 5, 0.96);
-      backdrop-filter: blur(10px);
-    }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+  /* HERO */
+  .hero {
+    padding: 40px 20px;
+  }
 
-    .nav-brand {
-      font-size: 14px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
+  .hero-top {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: #aaa;
+    margin-bottom: 20px;
+  }
 
-    .nav-menu-icon {
-      width: 18px;
-      height: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-    }
+  .hero-title {
+    font-size: 48px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
 
-    .nav-menu-icon span {
-      height: 1px;
-      background: var(--fg);
-      width: 100%;
-    }
+  .hero-sub {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 30px;
+  }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+  }
 
-    .nav-cart {
-      border: 1px solid var(--border);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-    }
+  .meta-box {
+    border: 1px solid #222;
+    padding: 12px;
+    border-radius: 8px;
+  }
 
-    /* MARQUEE */
+  .meta-label {
+    font-size: 10px;
+    color: #888;
+    letter-spacing: 0.2em;
+    margin-bottom: 6px;
+  }
 
-    .marquee-wrapper {
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 18px;
-    }
+  .meta-value {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
 
-    .marquee {
-      display: flex;
-      white-space: nowrap;
-      animation: marquee 18s linear infinite;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 8px 0;
-    }
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: #aaa;
+    margin-bottom: 40px;
+  }
 
-    .marquee span {
-      padding-right: 48px;
-    }
+  .btn {
+    border: 1px solid #222;
+    padding: 12px 20px;
+    border-radius: 50px;
+    background: #111;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
 
-    @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
+  /* OBJECTS */
+  .objects {
+    padding: 40px 20px;
+    border-top: 1px solid #222;
+  }
 
-    /* HERO */
+  .objects-header {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
 
-    .hero {
-      padding: 24px 0 40px;
-      border-bottom: 1px solid var(--border);
-    }
+  .object-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    .hero-topline {
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+  .placeholder {
+    width: 100%;
+    height: 220px;
+    border: 1px dashed #333;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+  }
 
-    .hero-topline span {
-      white-space: nowrap;
-    }
+  .object-info {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+  }
 
-    .hero-title {
-      font-size: clamp(32px, 6vw, 52px);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 4px;
-    }
+  .object-price {
+    font-size: 16px;
+    margin: 10px 0;
+  }
 
-    .hero-subtitle {
-      font-size: 13px;
-      text-transform: lowercase;
-      color: var(--muted);
-      margin-bottom: 32px;
-    }
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
 
-    .hero-meta-row {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 28px;
-    }
+  .spec-box {
+    border: 1px solid #222;
+    padding: 12px;
+    border-radius: 8px;
+  }
 
-    .meta-box {
-      border: 1px solid var(--border);
-      padding: 10px 10px 12px;
-      border-radius: 8px;
-      min-height: 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .meta-label {
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .meta-value {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .hero-bottom-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero-bottom-left {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .hero-cta {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 10px 18px;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      background: var(--accent-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .hero-cta span {
-      transform: translateY(1px);
-    }
-
-    /* OBJECTS SECTION */
-
-    .objects-section {
-      padding: 32px 0 40px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .objects-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 18px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .objects-title {
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .objects-subtitle {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .object-card {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .object-image-placeholder {
-      border-radius: 14px;
-      border: 1px dashed var(--border);
-      background: radial-gradient(circle at top left, #151515, #050505);
-      min-height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .object-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .object-topline {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .object-name {
-      font-size: 16px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .object-edition {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .object-price {
-      font-size: 14px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .object-spec-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .object-spec-box {
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      padding: 10px 10px 12px;
-    }
-
-    .object-spec-label {
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .object-spec-value {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .object-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .object-view-btn {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 9px 16px;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      background: transparent;
-    }
-
-    .object-meta-small {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* FOOTER */
-
-    .footer {
-      padding: 28px 0 0;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 18px;
-      margin-bottom: 14px;
-    }
-
-    .footer-brand {
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .footer-nav,
-    .footer-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 18px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding-bottom: 24px;
-    }
-
-    .footer-bottom span {
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 800px) {
-      .hero-meta-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .object-card {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 520px) {
-      .hero-meta-row {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-  </style>
+  /* FOOTER */
+  footer {
+    padding: 40px 20px;
+    border-top: 1px solid #222;
+    font-size: 12px;
+    color: #777;
+    letter-spacing: 0.15em;
+  }
+</style>
 </head>
+
 <body>
-  <div class="page">
 
-    <!-- NAVBAR -->
-    <header class="nav">
-      <div class="nav-left">
-        <div class="nav-menu-icon">
-          <span></span>
-          <span></span>
-        </div>
-        <div class="nav-brand">DAVID'S ART</div>
-      </div>
-      <div class="nav-right">
-        <div>MENU</div>
-        <div class="nav-cart">CART 00</div>
-      </div>
-    </header>
+<header>
+  <div>DAVID'S ART</div>
+  <div>CART 00</div>
+</header>
 
-    <!-- MARQUEE -->
-    <div class="marquee-wrapper">
-      <div class="marquee">
-        <span>● SHIPS WORLDWIDE ● LIMITED EDITION ● DAVID'S ART ● VOL 01 ● 2026 ● ART IS EVERYTHING</span>
-        <span>● SHIPS WORLDWIDE ● LIMITED EDITION ● DAVID'S ART ● VOL 01 ● 2026 ● ART IS EVERYTHING</span>
-      </div>
+<div class="marquee">
+  <span>● SHIPS WORLDWIDE ● LIMITED EDITION ● DAVID'S ART ● VOL 01 ● 2026 ● ART IS EVERYTHING ●</span>
+</div>
+
+<section class="hero">
+  <div class="hero-top">LIVE • BEFORE REVEAL • VOL 01 • 2026 / DAVID'S</div>
+
+  <div class="hero-title">DAVID'S ART</div>
+  <div class="hero-sub">art is everything</div>
+
+  <div class="meta-grid">
+    <div class="meta-box">
+      <div class="meta-label">Batch</div>
+      <div class="meta-value">One • No Restock</div>
     </div>
+    <div class="meta-box">
+      <div class="meta-label">Material</div>
+      <div class="meta-value">100% Cotton</div>
+    </div>
+    <div class="meta-box">
+      <div class="meta-label">Numbered</div>
+      <div class="meta-value">01 / 30</div>
+    </div>
+    <div class="meta-box">
+      <div class="meta-label">Drop</div>
+      <div class="meta-value">September • 2026</div>
+    </div>
+  </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-      <div class="hero-topline">
-        <span>LIVE • BEFORE REVEAL</span>
-        <span>VOL 01 • 2026</span>
-        <span>/ DAVID'S</span>
-      </div>
+  <div class="hero-bottom">
+    <div>[ 0.01 / t-shirts 01 • Old Memory • before reveal ]</div>
+    <button class="btn">VIEW OBJECTS →</button>
+  </div>
+</section>
 
-      <h1 class="hero-title">DAVID'S ART</h1>
-      <div class="hero-subtitle">art is everything</div>
+<section class="objects">
+  <div class="objects-header">OBJECTS — 01</div>
 
-      <div class="hero-meta-row">
-        <div class="meta-box">
+  <div class="object-card">
+    <div class="placeholder">IMAGE PLACEHOLDER — OLD MEMORY</div>
+
+    <div class="object-info">
+      OBJ — 01 / 01<br>
+      OLD MEMORY<br>
+      EDITION 1.0 • ONE BATCH
+      <div class="object-price">€60,00</div>
+
+      <div class="spec-grid">
+        <div class="spec-box">
+          <div class="meta-label">Mat.</div>
+          <div class="meta-value">260gsm Cotton</div>
+        </div>
+        <div class="spec-box">
+          <div class="meta-label">Ship</div>
+          <div class="meta-value">Depends on destination</div>
+        </div>
+        <div class="spec-box">
           <div class="meta-label">Batch</div>
           <div class="meta-value">One • No Restock</div>
         </div>
-        <div class="meta-box">
-          <div class="meta-label">Material</div>
-          <div class="meta-value">100% Cotton</div>
-        </div>
-        <div class="meta-box">
-          <div class="meta-label">Numbered</div>
-          <div class="meta-value">01 / 30</div>
-        </div>
-        <div class="meta-box">
-          <div class="meta-label">Drop</div>
-          <div class="meta-value">September • 2026</div>
-        </div>
       </div>
 
-      <div class="hero-bottom-row">
-        <div class="hero-bottom-left">
-          [ 0.01 / t-shirts 01 • Old Memory • before reveal ]
-        </div>
-        <button class="hero-cta">
-          <span>VIEW OBJECTS</span>
-          <span>→</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- OBJECTS SECTION -->
-    <section class="objects-section" id="objects">
-      <div class="objects-header">
-        <div class="objects-title">OBJECTS — 01</div>
-        <div class="objects-subtitle">FREE WORLDWIDE SHIPPING • ONE BATCH • NO RESTOCK</div>
-      </div>
-
-      <div class="object-card">
-        <!-- IMAGE PLACEHOLDER -->
-        <div class="object-image-placeholder">
-          IMAGE PLACEHOLDER — OLD MEMORY
-        </div>
-
-        <!-- INFO -->
-        <div class="object-info">
-          <div>
-            <div class="object-topline">OBJ — 01 / 01</div>
-            <div class="object-name">OLD MEMORY</div>
-            <div class="object-edition">EDITION 1.0 • ONE BATCH</div>
-            <div class="object-price">€60,00</div>
-
-            <div class="object-spec-grid">
-              <div class="object-spec-box">
-                <div class="object-spec-label">Mat.</div>
-                <div class="object-spec-value">260gsm Cotton</div>
-              </div>
-              <div class="object-spec-box">
-                <div class="object-spec-label">Ship</div>
-                <div class="object-spec-value">Depends on destination</div>
-              </div>
-              <div class="object-spec-box">
-                <div class="object-spec-label">Batch</div>
-                <div class="object-spec-value">One • No Restock</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="object-actions">
-            <button class="object-view-btn" id="view-object-btn">
-              <span>VIEW OBJECT</span>
-              <span>→</span>
-            </button>
-            <div class="object-meta-small">
-              OBJ — 01 / 01 • OLD MEMORY • VOL 01 • 2026
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-top">
-        <div class="footer-brand">DAVID'S ART © 2026</div>
-        <nav class="footer-nav">
-          <a href="#">HOME</a>
-          <a href="#objects">OBJECTS</a>
-          <a href="#">STUDIO</a>
-          <a href="#">CONTACT</a>
-        </nav>
-      </div>
-      <div class="footer-bottom">
-        <div class="footer-info">
-          <a href="#">FAQ</a>
-          <a href="#">SHIPPING</a>
-          <a href="#">REFUND</a>
-          <a href="#">PRIVACY</a>
-          <a href="#">TERMS</a>
-          <a href="#">COOKIES</a>
-        </div>
-        <span>ART IS EVERYTHING VOL 01 · 2026</span>
-      </div>
-    </footer>
-
+      <button class="btn">VIEW OBJECT →</button>
+    </div>
   </div>
+</section>
 
-  <script>
-    // Scroll hero "VIEW OBJECTS" button to objects section
-    document.querySelector('.hero-cta')?.addEventListener('click', () => {
-      const target = document.getElementById('objects');
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
+<footer>
+  DAVID'S ART © 2026<br><br>
+  FAQ • SHIPPING • REFUND • PRIVACY • TERMS • COOKIES<br><br>
+  ART IS EVERYTHING VOL 01 • 2026
+</footer>
 
-    // VIEW OBJECT button — later this will go to product page
-    document.getElementById('view-object-btn')?.addEventListener('click', () => {
-      // For now just log; later we link to /old-memory.html or open a slide/page
-      console.log('VIEW OBJECT clicked — later: go to product page with images, description, add to cart.');
-    });
-  </script>
 </body>
- </html>
+</html>              
