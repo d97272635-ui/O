@@ -28,16 +28,16 @@
 
   .menu-box {
     border: 1px solid #444;
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .menu-lines {
-    width: 18px;
-    height: 12px;
+    width: 16px;
+    height: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -72,9 +72,10 @@
   .marquee span {
     display: inline-block;
     animation: scroll 18s linear infinite;
-    font-size: 11px;
-    letter-spacing: 0.55em;
-    color: #aaa;
+    font-size: 10px;              /* smaller */
+    letter-spacing: 0.75em;       /* 2× more spread */
+    color: #777;                  /* light grey */
+    opacity: 0.9;
   }
 
   @keyframes scroll {
@@ -94,13 +95,9 @@
     margin-bottom: 18px;
   }
 
-  .hero-live span.red-dot {
-    color: #ff2a2a;
-  }
-
-  .hero-live span.grey {
-    color: #888;
-  }
+  .red-dot { color: #ff2a2a; }
+  .grey { color: #888; }
+  .white { color: #fff; }
 
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -133,15 +130,15 @@
   }
 
   .geo-dome {
-    width: 120px;
-    height: 60px;
+    width: 140px;
+    height: 50px;
     border: 1px solid #444;
     border-bottom: none;
-    border-radius: 120px 120px 0 0;
+    border-radius: 140px 140px 0 0;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: -20px;
+    top: -15px;
     overflow: hidden;
   }
 
@@ -151,27 +148,25 @@
     background: #444;
     position: absolute;
     transform: rotate(-25deg);
-    opacity: 0.4;
+    opacity: 0.25;
   }
 
-  .geo-slash:nth-child(1) { top: 10px; left: -40px; }
-  .geo-slash:nth-child(2) { top: 22px; left: -40px; }
-  .geo-slash:nth-child(3) { top: 34px; left: -40px; }
-  .geo-slash:nth-child(4) { top: 46px; left: -40px; }
-  .geo-slash:nth-child(5) { top: 58px; left: -40px; }
+  .geo-slash:nth-child(1) { top: 8px; left: -40px; }
+  .geo-slash:nth-child(2) { top: 20px; left: -40px; }
+  .geo-slash:nth-child(3) { top: 32px; left: -40px; }
 
   /* 4-SECTION RECTANGLE */
   .meta-box {
     width: 100%;
     border: 1px solid #222;
-    border-radius: 12px;
+    border-radius: 10px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     margin-bottom: 40px;
   }
 
   .meta-section {
-    padding: 18px;
+    padding: 16px;
     border-right: 1px solid #222;
   }
 
@@ -183,7 +178,7 @@
     font-size: 10px;
     color: #888;
     letter-spacing: 0.2em;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
   .meta-value {
@@ -196,7 +191,7 @@
   .btn {
     background: #d8c7a1;
     color: #000;
-    padding: 14px 26px;
+    padding: 16px 30px;
     border-radius: 50px;
     font-size: 12px;
     letter-spacing: 0.25em;
@@ -302,7 +297,8 @@
 
   <div class="hero-live">
     <span class="red-dot">●</span>
-    <span class="grey"> LIVE • BEFORE REVEAL • VOL 01 • 2026 / DAVID'S</span>
+    <span class="grey"> LIVE • BEFORE REVEAL • </span>
+    <span class="white">VOL 01 ● 2026 / DAVID'S</span>
   </div>
 
   <div class="hero-title">DAVID’S ART</div>
@@ -312,8 +308,6 @@
   <div class="geo-wrap">
     <div class="geo-line"></div>
     <div class="geo-dome">
-      <div class="geo-slash"></div>
-      <div class="geo-slash"></div>
       <div class="geo-slash"></div>
       <div class="geo-slash"></div>
       <div class="geo-slash"></div>
@@ -394,4 +388,4 @@
 </footer>
 
 </body>
-</html>
+     </html>
