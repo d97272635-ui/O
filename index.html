@@ -17,27 +17,28 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
+  /* HEADER */
   header {
     width: 100%;
-    padding: 20px;
+    padding: 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
   }
 
+  /* MENU ICON (KEON STYLE) */
   .menu-box {
-    border: 1px solid #444;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .menu-lines {
-    width: 14px;
-    height: 10px;
+    width: 16px;
+    height: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -46,48 +47,68 @@
   .menu-lines div {
     height: 2px;
     background: #fff;
+    border-radius: 2px;
   }
 
+  /* CENTERED TITLE */
   .nav-title {
-    font-size: 15px;
-    letter-spacing: 0.22em;
-    flex-grow: 1;
-    text-align: center;
-    margin-left: -30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    letter-spacing: 0.25em;
   }
 
+  /* CART (KEON STYLE) */
   .cart {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 13px;
-    letter-spacing: 0.2em;
-    padding-right: 4px;
+    letter-spacing: 0.18em;
+  }
+
+  .cart-box {
+    background: #fff;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
   }
 
   /* CONTINUOUS LOOP */
   .marquee {
     width: 100%;
     overflow: hidden;
-    border-top: 1px solid #1a1a1a;
-    border-bottom: 1px solid #1a1a1a;
-    padding: 12px 0;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 14px 0;
   }
 
   .marquee-inner {
     display: flex;
     width: max-content;
-    animation: scroll 22s linear infinite;
+    animation: scroll 24s linear infinite;
   }
 
   .marquee-inner span {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #eee;
     opacity: 1;
-    padding-right: 80px;
+    padding-right: 140px; /* 2× spacing */
   }
 
   @keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
+  }
+
+  /* RED DOT GLOW */
+  .red-dot {
+    color: #ff2a2a;
+    text-shadow: 0 0 6px #ff2a2a, 0 0 12px #b30000;
   }
 
   /* HERO */
@@ -102,7 +123,6 @@
     margin-bottom: 16px;
   }
 
-  .red-dot { color: #ff2a2a; }
   .grey { color: #888; }
   .white { color: #fff; }
 
@@ -308,14 +328,16 @@
 
   <div class="nav-title">DAVID'S ART</div>
 
-  <div class="cart">CART 00</div>
+  <div class="cart">
+    CART <span class="cart-box">00</span>
+  </div>
 </header>
 
 <!-- CONTINUOUS LOOP -->
 <div class="marquee">
   <div class="marquee-inner">
-    <span>DAVID'S     ●     ART     ●     VOL 01     ●     2026     ●     ART IS EVERYTHING</span>
-    <span>DAVID'S     ●     ART     ●     VOL 01     ●     2026     ●     ART IS EVERYTHING</span>
+    <span>DAVID'S     ●     SHIPS WORLDWIDE     ●     ONE BATCH • NO RESTOCK     ●     VOL 01     ●     2026</span>
+    <span>DAVID'S     ●     SHIPS WORLDWIDE     ●     ONE BATCH • NO RESTOCK     ●     VOL 01     ●     2026</span>
   </div>
 </div>
 
@@ -403,4 +425,4 @@
 </footer>
 
 </body>
-</html>
+     </html>
