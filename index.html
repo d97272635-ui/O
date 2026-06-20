@@ -17,17 +17,16 @@
     overflow-x: hidden;
   }
 
-  /* HEADER */
   header {
     width: 100%;
     padding: 22px;
+    background: #111;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
   }
 
-  /* MENU ICON (KEON STYLE) */
   .menu-box {
     width: 32px;
     height: 32px;
@@ -50,7 +49,6 @@
     border-radius: 2px;
   }
 
-  /* CENTERED TITLE */
   .nav-title {
     position: absolute;
     left: 50%;
@@ -59,7 +57,6 @@
     letter-spacing: 0.25em;
   }
 
-  /* CART (KEON STYLE) */
   .cart {
     display: flex;
     align-items: center;
@@ -77,13 +74,13 @@
     letter-spacing: 0.1em;
   }
 
-  /* CONTINUOUS LOOP */
   .marquee {
     width: 100%;
     overflow: hidden;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
     padding: 14px 0;
+    background: #000;
   }
 
   .marquee-inner {
@@ -94,10 +91,10 @@
 
   .marquee-inner span {
     font-size: 11px;
-    letter-spacing: 0.1em;
     color: #eee;
     opacity: 1;
-    padding-right: 140px; /* 2× spacing */
+    letter-spacing: 0.05em;
+    padding-right: 220px;
   }
 
   @keyframes scroll {
@@ -105,13 +102,11 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* RED DOT GLOW */
   .red-dot {
     color: #ff2a2a;
     text-shadow: 0 0 6px #ff2a2a, 0 0 12px #b30000;
   }
 
-  /* HERO */
   .hero {
     padding: 50px 22px 20px;
     text-align: center;
@@ -139,7 +134,6 @@
     margin-bottom: 20px;
   }
 
-  /* GEOMETRIC SHAPE */
   .geo-wrap {
     width: 100%;
     margin: 0 auto 35px;
@@ -182,7 +176,6 @@
   .geo-slash:nth-child(2) { top: 20px; left: -40px; }
   .geo-slash:nth-child(3) { top: 32px; left: -40px; }
 
-  /* 4 BOXES */
   .meta-box {
     width: 100%;
     border: 1px solid #222;
@@ -214,7 +207,6 @@
     text-transform: uppercase;
   }
 
-  /* BUTTON */
   .btn {
     background: #e2d4b3;
     color: #000;
@@ -228,7 +220,6 @@
     margin-bottom: 50px;
   }
 
-  /* OBJECT SECTION */
   .objects {
     padding: 50px 22px;
     border-top: 1px solid #222;
@@ -297,7 +288,6 @@
     margin-bottom: 50px;
   }
 
-  /* FOOTER */
   footer {
     padding: 60px 22px;
     border-top: 1px solid #222;
@@ -333,11 +323,10 @@
   </div>
 </header>
 
-<!-- CONTINUOUS LOOP -->
 <div class="marquee">
   <div class="marquee-inner">
-    <span>DAVID'S     ●     SHIPS WORLDWIDE     ●     ONE BATCH • NO RESTOCK     ●     VOL 01     ●     2026</span>
-    <span>DAVID'S     ●     SHIPS WORLDWIDE     ●     ONE BATCH • NO RESTOCK     ●     VOL 01     ●     2026</span>
+    <span>DAVID'S                 SHIPS WORLDWIDE                 ONE BATCH • NO RESTOCK                 VOL 01                 2026</span>
+    <span>DAVID'S                 SHIPS WORLDWIDE                 ONE BATCH • NO RESTOCK                 VOL 01                 2026</span>
   </div>
 </div>
 
@@ -425,4 +414,4 @@
 </footer>
 
 </body>
-     </html>
+ </html>
