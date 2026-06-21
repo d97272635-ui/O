@@ -513,6 +513,18 @@
 
   ART IS EVERYTHING • VOL 01 · 2026
 </footer>
+<script>
+  const cartBtn = document.querySelector('.cart');
+  const cartDrawer = document.getElementById('cartDrawer');
+  const closeCart = document.getElementById('closeCart');
 
+  cartBtn.addEventListener('click', () => {
+    cartDrawer.classList.add('open');
+  });
+
+  closeCart.addEventListener('click', () => {
+    cartDrawer.classList.remove('open');
+  });
+</script>
 </body>
  </html>
